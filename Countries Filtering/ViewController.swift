@@ -37,9 +37,12 @@ class ViewController: UITableViewController, UISearchControllerDelegate, UISearc
             navigationController?.navigationBar.prefersLargeTitles = true // Navigation bar large titles
             navigationItem.title = "Countries"
             
-            let search = UISearchController(searchResultsController: nil)
-            search.searchResultsUpdater = self
-            self.navigationItem.searchController = search
+            let searchController = UISearchController(searchResultsController: nil)
+            searchController.searchResultsUpdater = self
+            searchController.obscuresBackgroundDuringPresentation = false
+            searchController.searchBar.placeholder = "Search Countries..."
+            definesPresentationContext = true
+            self.navigationItem.searchController = searchController
             
         }
         
@@ -57,6 +60,8 @@ class ViewController: UITableViewController, UISearchControllerDelegate, UISearc
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let countrySelected = self.filterring ? self.filtered[indexPath.row] : self.countries[indexPath.row]
+        print(" countrySelected ", countrySelected)
     }
     
     
